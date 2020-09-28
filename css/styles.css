@@ -1,6 +1,14 @@
+h1 {
+    color: rgb(0, 0, 0);
+    font-size: 35px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
 h2 {
-    color: rgb(0, 0, 0)
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: red;
+    font-size: 35px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 input {
@@ -24,42 +32,13 @@ button {
     margin-top: 5px;
 }
 
-select {
-    border-radius: 10px;
-    border-color: rgb(189, 195, 199);
-    height: 35px;
-    width: 200px;
-    margin-right: 5px;
-    margin-top: 5px;
-}
-
 .error {
     background-color: rgb(255, 184, 184);
-}
-
-#aprobado {
-    color: #006400;
-}
-
-.tr {
-    height: 20px;
 }
 
 .colorTitulo {
     background-color: black;
     color: #fff;
-    font-size: 16px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    text-align: center;
-    height: 30px;
-}
-
-.celda {
-    font-size: 16px;
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-    font-weight: bold;
     height: 30px;
 }
 
@@ -74,12 +53,16 @@ select {
 }
 
 table {
-    table-layout: fixed;
     width: 1100px;
     border-collapse: collapse;
     border: 2px black;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    height: 30px;
   }
-  
+
 tr, td {
     padding: 10px;
 }

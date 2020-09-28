@@ -11,17 +11,12 @@ function init(e) {
     var notaInput = document.getElementById('notaInput');
     var emailInput = document.getElementById('emailInput');
     var btnIngresar = document.getElementById('btnIngresar');
-    var btnEliminar = document.getElementById('btnEliminar');
-    var tabla = document.createElement("table");
 
-    var tabla   = document.createElement("table");
+    var estudianesTbl = document.getElementById('estudianesTbl');
 
     var columnas = ['Nombre','Apellidos','Nota','Email','Eliminar'];
 
-    tabla.onclick = eliminarEstudiante;
-
     btnIngresar.onclick = ingresarEstudiante;
-    btnEliminar.onclick = eliminarEstudiante;
 
     agregarEstudiante('Mario', 'Lopez', '95', 'mlopez@mail.com');
     agregarEstudiante('Laura', 'Morales', '65', 'lmorales@mail.com');
@@ -89,76 +84,72 @@ function init(e) {
         limpiarInput();
     }
 
-    // Se crea la tabla
-
     function crearTabla() {
-       tabla.innerHTML = '';
-        // Obtener la referencia del elemento body
-        var body = document.getElementsByTagName("body")[0];
 
-        // Crea un elemento <table> y un elemento <tbody>
-        //var tabla   = document.createElement("table");
-        var tblBody = document.createElement("tbody");
+        estudianesTbl.innerHTML = '';
 
-        // Crea Titulos de la tabla
-        var hilera = document.createElement("tr");
-        hilera.className = 'colorTitulo';
 
-        for (var index = 0; index < columnas.length; index++) {
-            console.log(columnas[index]);
-            var celda = document.createElement("td");
-            var textoCelda = document.createTextNode(columnas[index]);
-            celda.appendChild(textoCelda);
-            hilera.appendChild(celda);
-            tblBody.appendChild(hilera);
+        var fila = document.createElement('tr');
+        estudianesTbl.appendChild(fila);
+
+        for (let index = 0; index < columnas.length; index++) {
+            var filaTitulo = document.createElement('th');
+            fila.appendChild(filaTitulo);
+            filaTitulo.innerText = columnas[index];
         }
-        // Crea las celdas
-        var indice = bdEstudiantes.length;
-        for (var i = 0; i < indice; i++) {
-            // Crea las hileras de la tabla
-            var hilera = document.createElement("tr");
 
-            for (var j = 0; j < columnas.length - 1; j++) {
+        fila.className = 'colorTitulo';
 
-                var campo = [];
-                campo = Object.values(bdEstudiantes[i]);
+        for (let index = 0; index < bdEstudiantes.length; index++) {
+            var estudiante = bdEstudiantes[index];
 
-                // Crea un elemento <td> y un nodo de texto
-                var celda = document.createElement("td");
-                var textoCelda = document.createTextNode(campo[j]);
-                celda.appendChild(textoCelda);
-                hilera.appendChild(celda);
-                hilera.className = 'celda';
+            fila = document.createElement('tr');
+            estudianesTbl.appendChild(fila);
+            fila.style.userSelect = 'none';
+
+            var celda = document.createElement('td');
+            fila.appendChild(celda);
+            celda.innerText = estudiante.nombreInput;
+
+            var celda = document.createElement('td');
+            fila.appendChild(celda);
+            celda.innerText = estudiante.apellidosInput;
+
+            var celda = document.createElement('td');
+            fila.appendChild(celda);
+            celda.innerText = estudiante.notaInput;
+
+            var celda = document.createElement('td');
+            fila.appendChild(celda);
+            celda.innerText = estudiante.emailInput;
+
+            var celda = document.createElement('td');
+            fila.appendChild(celda);
+            celda.innerText = 'Eliminar';
+            celda.className = 'btnEliminar';
+
+            celda.indiceEstudiante = index;
+            celda.addEventListener('click', onClickEliminaFila, false);
+
+            if (estudiante.notaInput < 80) {
+                fila.style.color = 'red';
+			} else {
+                fila.style.color = 'black';
             }
 
-            var celda = document.createElement("td");
-            var textoCelda = document.createTextNode('Eliminar');
-            celda.appendChild(textoCelda);
-            hilera.appendChild(celda);
-            celda.className = 'btnEliminar';
-            console.log(hilera.rowIndex);
-            tblBody.appendChild(hilera);
         }
 
-        // posiciona el <tbody> debajo del elemento <table>
-        tabla.appendChild(tblBody);
-        // appends <table> into <body>
-        body.appendChild(tabla);
-        // modifica el atributo "border" de la tabla y lo fija a "2";
-        tabla.setAttribute("border", "2");
-        console.dir(hilera);
-        console.dir(celda);
-      }
+        estudianesTbl.setAttribute("border", "2");
+    }
 
-    function eliminarEstudiante () {
-        var index = tabla.rowIndex;
-        console.log(index);
-        // if (indexSelect !== '') {
-		// 	indexSelect = Number(indexSelect);
-            //bdEstudiantes.splice(index,1);
-            //crearTabla();
-            //console.log(bdEstudiantes);
-        //}
+    function onClickEliminaFila(e) {
+        eliminarEstudiante(e.target.indiceEstudiante)
+    }
+
+    function eliminarEstudiante (index) {
+        bdEstudiantes.splice(index,1);
+        console.log(bdEstudiantes);
+        crearTabla();
     }
 
     function limpiarInput() {
